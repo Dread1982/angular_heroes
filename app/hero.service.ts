@@ -6,14 +6,20 @@ import { HEROES } from './mock-heroes';
 
 @Injectable()
 export class HeroService {
-    getHeroes(): Promise<Hero[]> {
-        return Promise.resolve(HEROES);
-    }
+  getHeroes(): Promise<Hero[]> {
+    return Promise.resolve(HEROES);
+  }
 
-    getHeroesSlowly(): Promise<Hero[]> {
-        return new Promise<Hero[]>(resolve =>
-            setTimeout(resolve, 4000)) // delay 4 seconds
-            .then(() => this.getHeroes());
-    }
+  getHeroesSlowly(): Promise<Hero[]> {
+    return new Promise<Hero[]>(resolve =>
+      setTimeout(resolve, 4000)) // delay 4 seconds
+      .then(() => this.getHeroes());
+  }
+
+  getHero(id: number): Promise<Hero> {
+    return this.getHeroes()
+      .then(heroes => heroes.find(hero => hero.id === id));
+  }
+
 
 }
